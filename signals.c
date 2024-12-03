@@ -65,7 +65,6 @@ int main(){
     sigprocmask(SIG_BLOCK, &blockedMask, &origMask);
 
     
-    //client;
     int client_fd, active_client = 0;
     struct sockaddr_in client_address;
     char buffer[BUFFER_SIZE] = {0};
@@ -83,7 +82,7 @@ int main(){
             }
         }
 
-        if (pselect(maxFd + 1, &fds, NULL, NULL, NULL, &origMask) == -1) {  //атомарно ожидаем сигнала или события
+        if (pselect(maxFd + 1, &fds, NULL, NULL, NULL, &origMask) == -1) {  //ожидаем изменения файловых дискрипторов
             if (errno == EINTR) {
                 printf("Some actions on receiving the signal.\n");
                 // обработка сигнала sighup
